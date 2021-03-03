@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <link rel="stylesheet" href="style.css" />
+
+    <title>Shoe configurator</title>
+  </head>
+  <body>
+    <p>Choose part to color:</p>
+    <section></section>
+
+    <label class="colorselector">
+      Select a color:
+      <input type="color" id="colorPicker" />
+    </label>
+
+    <script>
+      "use strict";
+      let elementToPaint;
+      window.addEventListener("DOMContentLoaded", start);
+
+      function start() {
+        loadSVG();
+      }
+
+      async function loadSVG() {
+        let response = await fetch("shoe_configurator-01.svg");
+        let mySVG = await response.text();
+        document.querySelector("section").innerHTML = mySVG;
+        manipulateSVG();
+      }
+
+      function manipulateSVG() {
+        console.log("Manipulate svg");
+        document.querySelectorAll(".interact_with").forEach((part) => {
+          console.log("fill to none");
+          part.style.cursor = "pointer";
+          //   part.style.fill = "none";
+          part.addEventListener("click", selectColor);
+        });
+      }
+
+      function selectColor() {
+        console.log("part chosen");
+        elementToPaint = this;
+        elementToPaint.style.fill = "grey";
+        colorPicker.addEventListener("input", getInput);
+      }
+
+      function getInput(event) {
+        const hexValue = event.target.value;
+        console.log(hexValue);
+        setColor(hexValue);
+      }
+
+      function setColor(hexValue) {
+        elementToPaint.style.fill = hexValue;
+      }
+    </script>
+  </body>
+</html>

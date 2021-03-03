@@ -1,0 +1,12 @@
+.interact_with:hover {
+  stroke: yellow;
+  stroke-width: 3px;
+}
+
+section {
+  width: 50vw;
+}
+
+#Shadow_copy_Image {
+  pointer-events: none;
+}
